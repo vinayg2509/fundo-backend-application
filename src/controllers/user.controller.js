@@ -15,7 +15,7 @@ export const newUser = async (req, res, next) => {
       message: data.message
     });
   } catch (err) {
-    next(err); // Forward error to error-handling middleware
+    next(err); 
   }
 };
 
@@ -28,6 +28,6 @@ export const userLogin = async (req, res, next) => {
       message: data.message
     });
   } catch (err) {
-    next(err); // Forward error to error-handling middleware
+    next(err); 
   }
 };
