@@ -5,6 +5,6 @@ import { userAuth } from '../middlewares/auth.middleware'
 const router = express.Router()
 
 router.post('/',userAuth, noteController.createNote)
-
+router.get('/', userAuth, noteController.getAllNotes)
 
 export default router
