@@ -1,5 +1,6 @@
 import { StatusCodes } from 'http-status-codes';
 import Note from '../models/notes.models';
+import { log } from 'winston';
 // import { updateNotes } from './note.service';
 
 export const createNote = async (noteBody) => {
@@ -57,3 +58,22 @@ export const updateNotes = async (id, noteBody, userId) => {
     };
   }
 };
+
+export const getNoteById= async(id)=>{
+  try {
+    const getNoteById=await Note.findById(id)
+    console.log(getNoteById);
+    
+    return getNoteById
+    ?{code:StatusCodes.OK,message:'Note fetched succesfully..!!',data:getNoteById}
+    :{code:StatusCodes.NOT_FOUND,message:'Note not found',data:null};
+    
+  }catch (error) {
+     console.error('\n Error fetching note: ', error);
+    return {
+      code: StatusCodes.INTERNAL_SERVER_ERROR,
+      data: [],
+      message: 'Error fetching note'
+    };
+  }
+}

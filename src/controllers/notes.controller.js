@@ -49,3 +49,17 @@ export const updateNotes = async (req, res) => {
     });
   }
 };
+
+export const getNoteById=async(req,res)=>{
+  try {
+    const {id}=req.params
+    const result= await noteServices.getNoteById(id)
+    res.status(result.code).json({
+      code:result.code,
+      data:result.data,
+      message:result.message
+    })
+  } catch (error) {
+      console.error(error);
+  }
+}
