@@ -1,4 +1,5 @@
 import * as noteServices from '../services/note.service';
+import { request } from 'supertest';
 
 export const createNote = async (req, res) => {
   try {
@@ -28,3 +29,23 @@ export const getAllNotes=async(req,res)=>{
         console.error("Error occured ",error);
     }
 }
+
+export const updateNotes = async (req, res) => {
+  try {
+    const { id } = req.params; 
+    const result = await noteServices.updateNotes(id, req.body);
+
+    res.status(result.code).json({
+      code: result.code,
+      data: result.data,
+      message: result.message
+    });
+  } catch (error) {
+    console.error("Error occurred:", error);
+    res.status(500).json({
+      code: 500,
+      data: [],
+      message: "Internal Server Error"
+    });
+  }
+};

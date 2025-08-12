@@ -1,5 +1,6 @@
 import { StatusCodes } from 'http-status-codes';
 import Note from '../models/notes.models';
+// import { updateNotes } from './note.service';
 
 export const createNote = async (noteBody) => {
   try {
@@ -35,4 +36,24 @@ export const getAllNotes = async () => {
     };
   }
 };
+export const updateNotes = async (id, noteBody, userId) => {
+  try {
+    const updatedNote = await Note.findOneAndUpdate(
+      { _id: id, createdBy: userId },
+      noteBody,
+      { new: true, runValidators: true }
+    );
 
+    return updatedNote
+      ? { code: StatusCodes.OK, message: 'Note updated successfully', data: updatedNote }
+      : { code: StatusCodes.NOT_FOUND, message: 'Note not found or no permission', data: null };
+
+  } catch (error) {
+    console.error('\n Error Updating note: ', error);
+    return {
+      code: StatusCodes.INTERNAL_SERVER_ERROR,
+      data: [],
+      message: 'Error updating note'
+    };
+  }
+};

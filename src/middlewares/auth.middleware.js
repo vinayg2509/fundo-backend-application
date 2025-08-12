@@ -16,7 +16,7 @@ export const userAuth = async (req, res, next) => {
     
     res.locals.user = decoded; // decoded = { id, email }
     res.locals.token = bearerToken;
-
+     req.body.createdBy = decoded.id
     next();
   } catch (error) {
     next({
